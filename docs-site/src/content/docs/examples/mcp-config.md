@@ -47,6 +47,8 @@ For Claude Desktop, the config format uses `mcpServers`. Place this in `claude_d
       "args": [
         "--env-file",
         "/path/to/.env",
+        "--from",
+        "git+https://github.com/mychaelconnolly/falcon-mcp.git",
         "falcon-mcp"
       ]
     }
@@ -65,8 +67,9 @@ Limit which modules are loaded to reduce tool count:
       "command": "uvx",
       "args": [
         "--env-file", "/path/to/.env",
+        "--from", "git+https://github.com/mychaelconnolly/falcon-mcp.git",
         "falcon-mcp",
-        "--modules", "detections,incidents,intel,hosts"
+        "--modules", "workflow,detections,incidents,intel,hosts"
       ]
     }
   }

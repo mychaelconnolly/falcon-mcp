@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Falcon MCP documentation site is built with [Starlight](https://starlight.astro.build/) (an [Astro](https://astro.build/) documentation framework) and deployed to GitHub Pages at [crowdstrike.github.io/falcon-mcp](https://crowdstrike.github.io/falcon-mcp/).
+The Falcon MCP documentation site is built with [Starlight](https://starlight.astro.build/) (an [Astro](https://astro.build/) documentation framework) and deployed to GitHub Pages at [mychaelconnolly.github.io/falcon-mcp](https://mychaelconnolly.github.io/falcon-mcp/).
 
 All source files live in the `docs-site/` directory within the main repository.
 

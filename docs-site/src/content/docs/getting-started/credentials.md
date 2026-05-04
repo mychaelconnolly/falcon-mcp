@@ -23,6 +23,9 @@ Ensure your API client has the necessary scopes for the modules you plan to use.
 
 Each module requires specific CrowdStrike API scopes. See the [Module Overview](/falcon-mcp/modules/overview/) for a complete list of modules and their required scopes.
 
+For this fork's Workflow module, grant `workflow:read`. The module is read-only
+and advisory; it does not require `workflow:write`.
+
 ## API Region URLs
 
 Select the correct base URL for your CrowdStrike region:

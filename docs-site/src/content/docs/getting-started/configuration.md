@@ -41,7 +41,7 @@ cp .env.example .env
 ### Option 2: Download from GitHub
 
 ```bash
-curl -o .env https://raw.githubusercontent.com/CrowdStrike/falcon-mcp/main/.env.example
+curl -o .env https://raw.githubusercontent.com/mychaelconnolly/falcon-mcp/main/.env.example
 ```
 
 ### Option 3: Create manually
@@ -54,7 +54,7 @@ FALCON_BASE_URL=https://api.crowdstrike.com
 
 # Optional Configuration
 #FALCON_MEMBER_CID=your-child-cid
-#FALCON_MCP_MODULES=detections,incidents,intel
+#FALCON_MCP_MODULES=workflow,detections,incidents,intel
 #FALCON_MCP_TRANSPORT=stdio
 #FALCON_MCP_DEBUG=false
 #FALCON_MCP_HOST=127.0.0.1
@@ -69,12 +69,12 @@ By default, all available modules are enabled. To restrict which modules load:
 
 ```bash
 # Command line (highest priority)
-falcon-mcp --modules detections,incidents,intel
+falcon-mcp --modules workflow,detections,incidents,intel
 ```
 
 ```bash
 # Environment variable (fallback)
-export FALCON_MCP_MODULES=detections,incidents,intel
+export FALCON_MCP_MODULES=workflow,detections,incidents,intel
 falcon-mcp
 ```
 

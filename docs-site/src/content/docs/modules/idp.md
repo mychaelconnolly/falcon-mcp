@@ -24,6 +24,7 @@ Accessing and managing CrowdStrike Falcon Identity Protection capabilities
 Comprehensive entity investigation tool.
 
 This tool provides complete entity investigation capabilities including:
+
 - Entity search and details lookup
 - Activity timeline analysis
 - Relationship and association mapping

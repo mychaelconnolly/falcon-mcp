@@ -3,56 +3,58 @@ title: Docker
 description: Deploy the Falcon MCP Server using Docker containers.
 ---
 
-The Falcon MCP Server is available as a pre-built container image at `quay.io/crowdstrike/falcon-mcp`.
+The upstream Falcon MCP Server is available as a pre-built container image at
+`quay.io/crowdstrike/falcon-mcp`. That image does not include this fork's
+Workflow module unless a fork-specific image is published later.
 
-## Using the Pre-built Image (Recommended)
+## Building This Fork Locally (Recommended)
 
-Pull the latest image:
+Build the image from this fork checkout:
 
 ```bash
-docker pull quay.io/crowdstrike/falcon-mcp:latest
+docker build -t falcon-mcp-workflow .
 ```
 
 Run with stdio transport (requires -i flag):
 
 ```bash
-docker run -i --rm --env-file /path/to/.env quay.io/crowdstrike/falcon-mcp:latest
+docker run -i --rm --env-file /path/to/.env falcon-mcp-workflow
 ```
 
 Run with SSE transport:
 
 ```bash
 docker run --rm -p 8000:8000 --env-file /path/to/.env \
-  quay.io/crowdstrike/falcon-mcp:latest --transport sse --host 0.0.0.0
+  falcon-mcp-workflow --transport sse --host 0.0.0.0
 ```
 
 Run with streamable-http transport:
 
 ```bash
 docker run --rm -p 8000:8000 --env-file /path/to/.env \
-  quay.io/crowdstrike/falcon-mcp:latest --transport streamable-http --host 0.0.0.0
+  falcon-mcp-workflow --transport streamable-http --host 0.0.0.0
 ```
 
 Run with custom port:
 
 ```bash
 docker run --rm -p 8080:8080 --env-file /path/to/.env \
-  quay.io/crowdstrike/falcon-mcp:latest --transport streamable-http --host 0.0.0.0 --port 8080
+  falcon-mcp-workflow --transport streamable-http --host 0.0.0.0 --port 8080
 ```
 
 Run with specific modules (stdio transport):
 
 ```bash
 docker run -i --rm --env-file /path/to/.env \
-  quay.io/crowdstrike/falcon-mcp:latest --modules detections,incidents,spotlight,idp
+  falcon-mcp-workflow --modules workflow,detections,incidents,spotlight,idp
 ```
 
-Use a pinned version:
+## Upstream Pre-built Image
 
-```bash
-docker run -i --rm --env-file /path/to/.env \
-  quay.io/crowdstrike/falcon-mcp:1.2.3
-```
+Use `quay.io/crowdstrike/falcon-mcp` only when you want the upstream
+CrowdStrike image. It keeps upstream behavior and does not include fork-only
+Workflow advisory tools unless this fork has been merged upstream or a
+fork-specific image has been published.
 
 ## Using Individual Environment Variables
 
@@ -63,7 +65,7 @@ docker run -i --rm \
   -e FALCON_CLIENT_ID=your_client_id \
   -e FALCON_CLIENT_SECRET=your_secret \
   -e FALCON_BASE_URL=https://api.crowdstrike.com \
-  quay.io/crowdstrike/falcon-mcp:latest
+  falcon-mcp-workflow
 ```
 
 :::note
@@ -71,25 +73,6 @@ When using HTTP transports in Docker, always set `--host 0.0.0.0` to allow exter
 
 The `-i` flag is required when using the default stdio transport.
 :::
-
-## Building Locally (Development)
-
-For development or customization, build the image from source.
-
-Build the image:
-
-```bash
-docker build -t falcon-mcp .
-```
-
-Run the locally built image:
-
-```bash
-docker run --rm \
-  -e FALCON_CLIENT_ID=your_client_id \
-  -e FALCON_CLIENT_SECRET=your_secret \
-  falcon-mcp
-```
 
 ## MCP Client Configuration
 
@@ -106,7 +89,7 @@ To use the Docker image with Claude Desktop or similar clients, add to your MCP 
         "--rm",
         "--env-file",
         "/full/path/to/.env",
-        "quay.io/crowdstrike/falcon-mcp:latest"
+        "falcon-mcp-workflow"
       ]
     }
   }

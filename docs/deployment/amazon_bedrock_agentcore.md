@@ -14,7 +14,7 @@ Create API credentials in your CrowdStrike console:
 4. Configure your API client:
    - **Client Name**: Choose a descriptive name (e.g., "Falcon MCP Server")
    - **Description**: Optional description for your records
-   - **API Scopes**: Select scopes based on which modules you plan to use ([see scope requirements](https://github.com/CrowdStrike/falcon-mcp#available-modules-tools--resources))
+   - **API Scopes**: Select scopes based on which modules you plan to use ([see scope requirements](https://github.com/mychaelconnolly/falcon-mcp#available-modules-tools--resources))
 5. Note down these values (you cannot retrieve them later):
    - `FALCON_CLIENT_ID` - Your API client ID
    - `FALCON_CLIENT_SECRET` - Your API client secret
@@ -105,4 +105,4 @@ After deployment, verify connectivity by invoking the `falcon_check_connectivity
 
 ### Additional Resources
 
-For full details, visit the [Falcon MCP GitHub repository](https://github.com/CrowdStrike/falcon-mcp).
+For full details, visit the [Falcon MCP workflow fork repository](https://github.com/mychaelconnolly/falcon-mcp).

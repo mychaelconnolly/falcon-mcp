@@ -3,11 +3,13 @@ title: Contributing
 description: How to contribute to the Falcon MCP Server project.
 ---
 
-Thank you for your interest in contributing to the Falcon MCP Server! This guide covers the contribution workflow, commit standards, and how to get help.
+Thank you for your interest in contributing to this Falcon MCP workflow fork. This guide covers the contribution workflow, commit standards, and how to get help.
+
+This fork tracks CrowdStrike's upstream Falcon MCP project and adds the read-only Workflow module. Contributions that apply to all Falcon MCP users may also be good candidates for upstream contribution.
 
 ## How to Contribute
 
-1. **Find an issue** in the [GitHub Issues](https://github.com/CrowdStrike/falcon-mcp/issues) section, or identify a feature to add.
+1. **Find an issue** in the [GitHub Issues](https://github.com/mychaelconnolly/falcon-mcp/issues) section, or identify a feature to add.
 
 2. **Fork the repository** to your GitHub account.
 
@@ -49,7 +51,7 @@ Thank you for your interest in contributing to the Falcon MCP Server! This guide
 
 8. **Commit** using Conventional Commits (see below).
 
-9. **Push and open a pull request** to the upstream repository.
+9. **Push and open a pull request** to this fork.
 
 ## Conventional Commits
 
@@ -115,5 +117,5 @@ uv run pytest --run-e2e tests/e2e/
 
 ## Getting Help
 
-- Open an issue in the [project repository](https://github.com/CrowdStrike/falcon-mcp/issues)
+- Open an issue in the [project repository](https://github.com/mychaelconnolly/falcon-mcp/issues)
 - For broader CrowdStrike community questions, [open a community discussion](https://github.com/CrowdStrike/community/discussions/new)

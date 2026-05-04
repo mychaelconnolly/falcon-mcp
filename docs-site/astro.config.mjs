@@ -3,7 +3,7 @@ import starlight from '@astrojs/starlight';
 import starlightThemeGalaxy from 'starlight-theme-galaxy';
 
 export default defineConfig({
-  site: 'https://crowdstrike.github.io',
+  site: 'https://mychaelconnolly.github.io',
   base: '/falcon-mcp',
   integrations: [
     starlight({
@@ -18,13 +18,14 @@ export default defineConfig({
       title: 'Falcon MCP',
       favicon: '/icons/faviconV2.png',
       social: [
-        { label: 'GitHub', icon: 'github', href: 'https://github.com/CrowdStrike/falcon-mcp' },
+        { label: 'GitHub', icon: 'github', href: 'https://github.com/mychaelconnolly/falcon-mcp' },
       ],
       customCss: ['./src/styles/custom.css'],
       sidebar: [
         {
           label: 'Getting Started',
           items: [
+            { label: 'Fork Notes', slug: 'fork' },
             { label: 'Installation', slug: 'getting-started/installation' },
             { label: 'API Credentials', slug: 'getting-started/credentials' },
             { label: 'Configuration', slug: 'getting-started/configuration' },

@@ -50,6 +50,10 @@ MODULE_METADATA: dict[str, dict[str, Any]] = {
     "shield": {
         "title": "Shield",
     },
+    "workflow": {
+        "title": "Workflow",
+        "description": "Fusion SOAR workflow design assistance using live Workflow catalog data.",
+    },
 }
 
 # Natural language prompt examples for each tool, shown in generated docs
@@ -262,6 +266,34 @@ TOOL_EXAMPLES: dict[str, list[str]] = {
     ],
     "falcon_dismiss_shield_check": [
         "Dismiss a low-impact Shield check entity with reason 'No longer applicable'",
+    ],
+    # Workflow
+    "falcon_search_workflow_activities": [
+        "Find workflow actions for notifying an analyst",
+    ],
+    "falcon_search_workflow_activity_content": [
+        "Show me the fields required for a host containment workflow action",
+    ],
+    "falcon_search_workflow_triggers": [
+        "Find the workflow trigger for new detections",
+    ],
+    "falcon_search_workflow_definitions": [
+        "Find existing workflows related to host containment",
+    ],
+    "falcon_export_workflow_definition": [
+        "Export workflow definition abc123 as a sanitized reference",
+    ],
+    "falcon_search_workflow_executions": [
+        "Show recent executions for workflow abc123",
+    ],
+    "falcon_get_workflow_execution_results": [
+        "Get results for workflow execution abc123",
+    ],
+    "falcon_get_workflow_human_inputs": [
+        "Show human input details for request abc123",
+    ],
+    "falcon_query_workflow_child_executions": [
+        "Find child executions for parent workflow execution abc123",
     ],
     # Spotlight
     "falcon_search_vulnerabilities": [
@@ -509,7 +541,9 @@ def extract_tool_annotations(module_cls: type) -> dict[str, dict[str, bool]]:
     return annotations
 
 
-def generate_module_page(module_key: str, module_cls: type, auto_title: str, auto_description: str) -> str:
+def generate_module_page(
+    module_key: str, module_cls: type, auto_title: str, auto_description: str
+) -> str:
     """Generate a complete markdown page for a module."""
     meta = MODULE_METADATA.get(module_key, {})
     title = meta.get("title", auto_title)
@@ -656,7 +690,9 @@ def generate_overview_page(modules: dict[str, dict[str, Any]]) -> str:
         module_cls = modules[key]["cls"]
         scopes_list = extract_module_scopes(module_cls)
         scopes = ", ".join(f"`{s}`" for s in scopes_list)
-        fallback_desc = modules[key]["auto_description"] or f"{title} module for CrowdStrike Falcon."
+        fallback_desc = (
+            modules[key]["auto_description"] or f"{title} module for CrowdStrike Falcon."
+        )
         desc = meta.get("description", fallback_desc)
         lines.append(f"| [{title}](/falcon-mcp/modules/{slug}/) | {scopes} | {desc} |")
 
@@ -684,7 +720,9 @@ def main() -> None:
         filename = f"{slug}.md"
         expected_files.add(filename)
 
-        page = generate_module_page(key, mod_info["cls"], mod_info["auto_title"], mod_info["auto_description"])
+        page = generate_module_page(
+            key, mod_info["cls"], mod_info["auto_title"], mod_info["auto_description"]
+        )
         (OUTPUT_DIR / filename).write_text(page)
         print(f"  Generated: modules/{filename}")
 

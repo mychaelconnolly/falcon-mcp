@@ -11,18 +11,29 @@ description: Install the Falcon MCP Server using uv or pip.
 
 ## Install using uv
 
+Install this fork from GitHub:
+
 ```bash
-uv tool install falcon-mcp
+uv tool install git+https://github.com/mychaelconnolly/falcon-mcp.git
 ```
 
 ## Install using pip
 
+Install this fork from GitHub:
+
 ```bash
-pip install falcon-mcp
+pip install git+https://github.com/mychaelconnolly/falcon-mcp.git
 ```
 
 :::tip
 If `falcon-mcp` isn't found after installation, update your shell `PATH`.
+:::
+
+:::note
+`uv tool install falcon-mcp`, `pip install falcon-mcp`, and the public
+`quay.io/crowdstrike/falcon-mcp` container install upstream artifacts. Use the
+GitHub install commands on this page for the fork-only Workflow module until
+fork-specific package or container artifacts exist.
 :::
 
 ## Run without installing
@@ -30,7 +41,7 @@ If `falcon-mcp` isn't found after installation, update your shell `PATH`.
 You can run the server directly without a permanent install using `uvx`:
 
 ```bash
-uvx falcon-mcp
+uvx --from git+https://github.com/mychaelconnolly/falcon-mcp.git falcon-mcp
 ```
 
 This is the recommended approach for editor integrations.

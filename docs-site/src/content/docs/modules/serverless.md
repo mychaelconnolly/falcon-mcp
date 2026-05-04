@@ -20,6 +20,7 @@ Accessing and managing CrowdStrike Falcon Serverless Vulnerabilities
 Search for vulnerabilities in your serverless functions across all cloud service providers.
 
 This endpoint provides security information in SARIF format, including:
+
 - CVE IDs for identified vulnerabilities
 - Severity levels
 - Vulnerability descriptions

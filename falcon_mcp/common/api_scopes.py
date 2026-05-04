@@ -73,6 +73,16 @@ API_SCOPE_REQUIREMENTS = {
     "report_executions_query": ["Scheduled Reports:read"],
     "report_executions_get": ["Scheduled Reports:read"],
     "report_executions_download_get": ["Scheduled Reports:read"],
+    # Workflow operations
+    "WorkflowActivitiesCombined": ["workflow:read"],
+    "WorkflowActivitiesContentCombined": ["workflow:read"],
+    "WorkflowTriggersCombined": ["workflow:read"],
+    "WorkflowDefinitionsCombined": ["workflow:read"],
+    "WorkflowDefinitionsExport": ["workflow:read"],
+    "WorkflowExecutionsCombined": ["workflow:read"],
+    "WorkflowExecutionResults": ["workflow:read"],
+    "WorkflowGetHumanInputV1": ["workflow:read"],
+    "v1_child_executions_query": ["workflow:read"],
     # NGSIEM operations
     "StartSearchV1": ["NGSIEM:write"],
     "GetSearchStatusV1": ["NGSIEM:read"],

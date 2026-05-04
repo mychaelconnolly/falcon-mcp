@@ -25,6 +25,7 @@ This tool modifies data.
 Create a new Custom IOA behavioral detection rule within a rule group.
 
 Before creating a rule:
+
 1. Use `falcon_get_ioa_rule_types` to discover available rule types, their IDs,
    required fields, and valid disposition IDs.
 2. Use `falcon_search_ioa_rule_groups` to find the target rule group ID.

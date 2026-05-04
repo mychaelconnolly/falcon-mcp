@@ -7,6 +7,8 @@ This module provides common utility functions for the Falcon MCP server.
 import re
 from typing import Any, Optional
 
+from pydantic.fields import FieldInfo
+
 from .errors import _format_error_response, is_success_response
 from .logging import get_logger
 
@@ -22,7 +24,13 @@ def filter_none_values(data: dict[str, Any]) -> dict[str, Any]:
     Returns:
         Dict[str, Any]: Filtered dictionary
     """
-    return {k: v for k, v in data.items() if v is not None}
+    filtered = {}
+    for key, value in data.items():
+        if isinstance(value, FieldInfo):
+            value = None if value.is_required() else value.default
+        if value is not None:
+            filtered[key] = value
+    return filtered
 
 
 def prepare_api_parameters(params: dict[str, Any]) -> dict[str, Any]:
@@ -143,16 +151,13 @@ def generate_md_table(data: list[tuple]) -> str:
         clean_headers.append(header.strip())
 
     # Build table structure
-    lines = [
-        "|" + "|".join(clean_headers) + "|",
-        "|" + "|".join(["-"] * len(clean_headers)) + "|"
-    ]
+    lines = ["|" + "|".join(clean_headers) + "|", "|" + "|".join(["-"] * len(clean_headers)) + "|"]
 
     # Process data rows
     for row in data[1:]:
         # Convert values to strings with consistent formatting
         row_values = []
-        for value in row[:len(clean_headers)]:  # Truncate to header count
+        for value in row[: len(clean_headers)]:  # Truncate to header count
             if value is None:
                 row_values.append("")
             elif isinstance(value, bool):
@@ -162,7 +167,7 @@ def generate_md_table(data: list[tuple]) -> str:
             else:
                 # Handle multi-line strings by collapsing to single line
                 text = str(value)
-                clean_text = " ".join(line.strip() for line in text.split('\n') if line.strip())
+                clean_text = " ".join(line.strip() for line in text.split("\n") if line.strip())
                 row_values.append(clean_text)
 
         # Pad row to match header count

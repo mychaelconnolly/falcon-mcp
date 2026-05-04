@@ -32,6 +32,7 @@ Search for cloud assets in your CrowdStrike CSPM Asset Inventory.
 
 This tool queries cloud resources (EC2 instances, VPCs, subnets, load balancers, etc.)
 managed by CrowdStrike CSPM. Supports comprehensive FQL filtering including:
+
 - Cloud provider and resource type filtering
 - Tag-based filtering (AWS/Azure/GCP tags)
 - Security posture (publicly exposed, severity, IOM/IOA counts)

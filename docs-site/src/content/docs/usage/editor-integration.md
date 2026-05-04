@@ -19,6 +19,8 @@ Edit `claude_desktop_config.json`:
       "args": [
         "--env-file",
         "/path/to/.env",
+        "--from",
+        "git+https://github.com/mychaelconnolly/falcon-mcp.git",
         "falcon-mcp"
       ]
     }
@@ -36,9 +38,11 @@ Edit `claude_desktop_config.json`:
       "args": [
         "--env-file",
         "/path/to/.env",
+        "--from",
+        "git+https://github.com/mychaelconnolly/falcon-mcp.git",
         "falcon-mcp",
         "--modules",
-        "detections,incidents,intel"
+        "workflow,detections,incidents,intel"
       ]
     }
   }
@@ -52,7 +56,11 @@ Edit `claude_desktop_config.json`:
   "mcpServers": {
     "falcon-mcp": {
       "command": "uvx",
-      "args": ["falcon-mcp"],
+      "args": [
+        "--from",
+        "git+https://github.com/mychaelconnolly/falcon-mcp.git",
+        "falcon-mcp"
+      ],
       "env": {
         "FALCON_CLIENT_ID": "your-client-id",
         "FALCON_CLIENT_SECRET": "your-client-secret",
@@ -76,7 +84,7 @@ Edit `claude_desktop_config.json`:
         "--rm",
         "--env-file",
         "/full/path/to/.env",
-        "quay.io/crowdstrike/falcon-mcp:latest"
+        "falcon-mcp-workflow"
       ]
     }
   }
@@ -85,6 +93,9 @@ Edit `claude_desktop_config.json`:
 
 :::note
 The `-i` flag is required when using the default stdio transport with Docker.
+Build `falcon-mcp-workflow` locally from this fork before using the Docker
+configuration. The upstream `quay.io/crowdstrike/falcon-mcp` image does not
+include fork-only Workflow tools.
 :::
 
 ## Cline (VS Code)
@@ -99,6 +110,8 @@ Cline supports stdio and SSE transports. Add to your Cline MCP settings:
       "args": [
         "--env-file",
         "/path/to/.env",
+        "--from",
+        "git+https://github.com/mychaelconnolly/falcon-mcp.git",
         "falcon-mcp"
       ]
     }
@@ -110,7 +123,7 @@ Cline supports stdio and SSE transports. Add to your Cline MCP settings:
 
 ```bash
 # Install uv first
-gemini extensions install https://github.com/CrowdStrike/falcon-mcp
+gemini extensions install https://github.com/mychaelconnolly/falcon-mcp
 ```
 
 ```bash
