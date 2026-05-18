@@ -83,5 +83,17 @@ falcon-mcp --modules workflow,detections,hosts,intel
 
 ## Publication Status
 
-This branch is prepared for a fork, but no push, release, PyPI publication, or
-container publication is implied by these docs.
+This fork is published at:
+
+https://github.com/mychaelconnolly/falcon-mcp
+
+The `main` branch is synced with upstream `v0.10.0` while preserving the
+read-only Workflow module.
+
+The GitHub Pages documentation site is enabled at:
+
+https://mychaelconnolly.github.io/falcon-mcp/
+
+No PyPI release or container publication exists for this fork. The published
+`falcon-mcp` PyPI package and public `quay.io/crowdstrike/falcon-mcp` image are
+still upstream CrowdStrike artifacts.
