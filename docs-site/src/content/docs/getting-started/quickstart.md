@@ -12,6 +12,7 @@ This guide gets you from zero to a working Falcon MCP Server connection in 5 min
 3. Click **Add new API client** and configure:
    - Give it a name (e.g., "Falcon MCP Server")
    - Enable scopes for the modules you plan to use
+   - For basic detections/hosts usage, enable at minimum `Hosts:read` and `Alerts:read`
    - For the fork-only Workflow module, enable `workflow:read`
 4. Save your **Client ID**, **Client Secret**, and **Base URL**
 

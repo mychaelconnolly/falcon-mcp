@@ -87,5 +87,5 @@ falcon-mcp --modules workflow
 To combine it with other modules:
 
 ```bash
-falcon-mcp --modules workflow,detections,incidents,intel
+falcon-mcp --modules workflow,detections,hosts,intel
 ```

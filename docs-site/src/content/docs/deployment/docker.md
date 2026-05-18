@@ -46,7 +46,7 @@ Run with specific modules (stdio transport):
 
 ```bash
 docker run -i --rm --env-file /path/to/.env \
-  falcon-mcp-workflow --modules workflow,detections,incidents,spotlight,idp
+  falcon-mcp-workflow --modules workflow,detections,hosts,spotlight,idp
 ```
 
 ## Upstream Pre-built Image

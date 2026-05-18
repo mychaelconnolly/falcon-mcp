@@ -17,12 +17,6 @@ API_SCOPE_REQUIREMENTS = {
     # Hosts operations
     "QueryDevicesByFilter": ["Hosts:read"],
     "PostDeviceDetailsV2": ["Hosts:read"],
-    # Incidents operations
-    "QueryIncidents": ["Incidents:read"],
-    "CrowdScore": ["Incidents:read"],
-    "GetIncidents": ["Incidents:read"],
-    "GetBehaviors": ["Incidents:read"],
-    "QueryBehaviors": ["Incidents:read"],
     # Intel operations
     "QueryIntelActorEntities": ["Actors (Falcon Intelligence):read"],
     "QueryIntelIndicatorEntities": ["Indicators (Falcon Intelligence):read"],
@@ -53,6 +47,14 @@ API_SCOPE_REQUIREMENTS = {
     # CSPM Assets operations
     "cloud_security_assets_queries": ["Cloud Security API Assets:read"],
     "cloud_security_assets_entities_get": ["Cloud Security API Assets:read"],
+    # CSPM IOM Findings operations (CloudSecurityDetections)
+    "cspm_evaluations_iom_queries": ["Cloud Security API Detections:read"],
+    "cspm_evaluations_iom_entities": ["Cloud Security API Detections:read"],
+    # CSPM Suppression Rules (override endpoints)
+    "QuerySuppressionRules": ["Cloud Security Policies:read"],
+    "GetSuppressionRules": ["Cloud Security Policies:read"],
+    "CreateSuppressionRule": ["Cloud Security Policies:write"],
+    "DeleteSuppressionRules": ["Cloud Security Policies:write"],
     # Identity Protection operations
     "api_preempt_proxy_post_graphql": [
         "Identity Protection Entities:read",
@@ -126,6 +128,18 @@ API_SCOPE_REQUIREMENTS = {
     "GetSystemLogsV3": ["SaaS Security:read"],
     "DismissSecurityCheckV3": ["SaaS Security:write"],
     "DismissAffectedEntityV3": ["SaaS Security:write"],
+    # Case Management operations
+    "queries_cases_get_v1": ["Cases:read"],
+    "entities_cases_post_v2": ["Cases:read"],
+    "entities_cases_put_v2": ["Cases:write"],
+    "entities_cases_patch_v2": ["Cases:write"],
+    "entities_alert_evidence_post_v1": ["Cases:write"],
+    "entities_event_evidence_post_v1": ["Cases:write"],
+    "entities_case_tags_post_v1": ["Cases:write"],
+    "entities_case_tags_delete_v1": ["Cases:write"],
+    # Case Templates operations
+    "queries_templates_get_v1": ["Case Templates:read"],
+    "entities_templates_get_v1": ["Case Templates:read"],
 }
 
 

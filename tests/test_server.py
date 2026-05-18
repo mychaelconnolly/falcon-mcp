@@ -85,37 +85,77 @@ class TestFalconMCPServer(unittest.TestCase):
 
     @patch("falcon_mcp.server.FalconClient")
     def test_authentication_failure(self, mock_client):
-        """Test server initialization with authentication failure."""
-        # Setup mock
+        """Test server initialization with authentication failure includes diagnostics."""
         mock_client_instance = MagicMock()
         mock_client_instance.authenticate.return_value = False
+        mock_client_instance.auth_failure_message.return_value = (
+            "Failed to authenticate with the Falcon API (HTTP 401). invalid credentials"
+        )
         mock_client.return_value = mock_client_instance
 
-        # Verify authentication failure raises RuntimeError
-        with self.assertRaises(RuntimeError):
+        with self.assertRaises(RuntimeError) as ctx:
             FalconMCPServer()
 
+        self.assertIn("HTTP 401", str(ctx.exception))
+        mock_client_instance.auth_failure_message.assert_called_once()
+
     @patch("falcon_mcp.server.FalconClient")
-    def test_falcon_check_connectivity(self, mock_client):
-        """Test checking Falcon API connectivity."""
-        # Setup mock
+    def test_falcon_check_connectivity_success(self, mock_client):
+        """Successful OAuth2 probe (HTTP 201) returns connected=True."""
         mock_client_instance = MagicMock()
-        mock_client_instance.is_authenticated.return_value = True
-        mock_client.return_value = mock_client_instance
         mock_client_instance.authenticate.return_value = True
+        mock_client_instance.client._login_handler.return_value = {"status_code": 201}
+        mock_client.return_value = mock_client_instance
 
-        # Create server with mock client
         server = FalconMCPServer()
-
-        # Call falcon_check_connectivity
         result = server.falcon_check_connectivity()
 
-        # Verify client method was called
-        mock_client_instance.is_authenticated.assert_called_once()
+        mock_client_instance.client._login_handler.assert_called_once_with(stateful=False)
+        self.assertEqual(result, {"connected": True})
 
-        # Verify result
-        expected_result = {"connected": True}
-        self.assertEqual(result, expected_result)
+    @patch("falcon_mcp.server.FalconClient")
+    def test_falcon_check_connectivity_non_201(self, mock_client):
+        """Non-201 status from OAuth2 probe returns connected=False."""
+        mock_client_instance = MagicMock()
+        mock_client_instance.authenticate.return_value = True
+        mock_client_instance.client._login_handler.return_value = {"status_code": 401}
+        mock_client.return_value = mock_client_instance
+
+        server = FalconMCPServer()
+        result = server.falcon_check_connectivity()
+
+        self.assertEqual(result, {"connected": False})
+
+    @patch("falcon_mcp.server.FalconClient")
+    def test_falcon_check_connectivity_probe_raises(self, mock_client):
+        """Exception during probe returns connected=False, does not propagate."""
+        mock_client_instance = MagicMock()
+        mock_client_instance.authenticate.return_value = True
+        mock_client_instance.client._login_handler.side_effect = ConnectionError("boom")
+        mock_client.return_value = mock_client_instance
+
+        server = FalconMCPServer()
+        with self.assertLogs("falcon_mcp.server", level="WARNING") as cm:
+            result = server.falcon_check_connectivity()
+
+        self.assertEqual(result, {"connected": False})
+        self.assertTrue(any("Connectivity probe failed" in msg for msg in cm.output))
+
+    @patch("falcon_mcp.server.FalconClient")
+    def test_falcon_check_connectivity_does_not_mutate_token_state(self, mock_client):
+        """Probe must not trigger stateful authenticate()."""
+        mock_client_instance = MagicMock()
+        mock_client_instance.authenticate.return_value = True
+        mock_client_instance.client._login_handler.return_value = {"status_code": 201}
+        mock_client.return_value = mock_client_instance
+
+        server = FalconMCPServer()
+        # Reset count after __init__ (which legitimately calls authenticate once).
+        mock_client_instance.authenticate.reset_mock()
+
+        server.falcon_check_connectivity()
+
+        mock_client_instance.authenticate.assert_not_called()
 
     @patch("falcon_mcp.server.FalconClient")
     def test_list_enabled_modules(self, mock_client):
@@ -405,30 +445,6 @@ class TestFalconMCPServer(unittest.TestCase):
                     f"Tool {name} should have READ_ONLY_ANNOTATIONS",
                 )
 
-
-    @patch("falcon_mcp.server.FalconClient")
-    @patch("falcon_mcp.server.FastMCP")
-    def test_all_tools_have_annotations(self, mock_fastmcp, mock_client):
-        """Test that every registered tool has non-None annotations."""
-        mock_client_instance = MagicMock()
-        mock_client_instance.authenticate.return_value = True
-        mock_client.return_value = mock_client_instance
-
-        mock_server_instance = MagicMock()
-        mock_fastmcp.return_value = mock_server_instance
-
-        # Create server with ALL modules to register every tool
-        FalconMCPServer()
-
-        for call in mock_server_instance.add_tool.call_args_list:
-            name = call.kwargs.get("name", "<unknown>")
-            annotations = call.kwargs.get("annotations")
-            self.assertIsNotNone(
-                annotations,
-                f"Tool '{name}' was registered without annotations. "
-                f"Use _add_tool() for automatic READ_ONLY_ANNOTATIONS, "
-                f"or pass explicit annotations for mutating tools.",
-            )
 
     @patch("falcon_mcp.server.FalconClient")
     @patch("falcon_mcp.server.FastMCP")

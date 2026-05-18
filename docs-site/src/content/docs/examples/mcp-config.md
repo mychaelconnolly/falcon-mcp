@@ -69,7 +69,7 @@ Limit which modules are loaded to reduce tool count:
         "--env-file", "/path/to/.env",
         "--from", "git+https://github.com/mychaelconnolly/falcon-mcp.git",
         "falcon-mcp",
-        "--modules", "workflow,detections,incidents,intel,hosts"
+        "--modules", "workflow,detections,intel,hosts"
       ]
     }
   }

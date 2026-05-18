@@ -42,7 +42,7 @@ Edit `claude_desktop_config.json`:
         "git+https://github.com/mychaelconnolly/falcon-mcp.git",
         "falcon-mcp",
         "--modules",
-        "workflow,detections,incidents,intel"
+        "workflow,detections,hosts,intel"
       ]
     }
   }

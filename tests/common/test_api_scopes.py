@@ -63,8 +63,6 @@ class TestApiScopes(unittest.TestCase):
         # Test with known operations
         self.assertEqual(get_required_scopes("GetQueriesAlertsV2"), ["Alerts:read"])
         self.assertEqual(get_required_scopes("PostEntitiesAlertsV2"), ["Alerts:read"])
-        self.assertEqual(get_required_scopes("QueryIncidents"), ["Incidents:read"])
-
         # Test with unknown operation
         self.assertEqual(get_required_scopes("UnknownOperation"), [])
 
@@ -143,7 +141,6 @@ class TestApiScopes(unittest.TestCase):
         # Test with multiple known operations to ensure consistency
         test_cases = [
             ("GetQueriesAlertsV2", ["Alerts:read"]),
-            ("QueryIncidents", ["Incidents:read"]),
             ("QueryIntelActorEntities", ["Actors (Falcon Intelligence):read"]),
             (
                 "api_preempt_proxy_post_graphql",
@@ -198,8 +195,10 @@ class TestApiScopes(unittest.TestCase):
         # Validate that most resources use consistent permission patterns
         read_only_resources = [
             "Alerts",
+            "Case Templates",
+            "Cloud Security API Assets",
+            "Cloud Security API Detections",
             "Hosts",
-            "Incidents",
             "Vulnerabilities",
             "Assets",
             "Sensor Usage",
@@ -221,13 +220,6 @@ class TestApiScopes(unittest.TestCase):
         module_patterns = {
             "alerts": ["GetQueriesAlertsV2", "PostEntitiesAlertsV2"],
             "hosts": ["QueryDevicesByFilter", "PostDeviceDetailsV2"],
-            "incidents": [
-                "QueryIncidents",
-                "GetIncidents",
-                "QueryBehaviors",
-                "GetBehaviors",
-                "CrowdScore",
-            ],
             "intel": [
                 "QueryIntelActorEntities",
                 "QueryIntelIndicatorEntities",
@@ -235,7 +227,19 @@ class TestApiScopes(unittest.TestCase):
                 "GetMitreReport",
             ],
             "spotlight": ["combinedQueryVulnerabilities"],
-            "cloud": ["ReadContainerCombined", "ReadContainerCount", "ReadCombinedVulnerabilities"],
+            "cloud": [
+                "ReadContainerCombined",
+                "ReadContainerCount",
+                "ReadCombinedVulnerabilities",
+                "cloud_security_assets_queries",
+                "cloud_security_assets_entities_get",
+                "cspm_evaluations_iom_queries",
+                "cspm_evaluations_iom_entities",
+                "QuerySuppressionRules",
+                "GetSuppressionRules",
+                "CreateSuppressionRule",
+                "DeleteSuppressionRules",
+            ],
             "discover": ["combined_applications", "combined_hosts"],
             "idp": ["api_preempt_proxy_post_graphql"],
             "sensor_usage": ["GetSensorUsageWeekly"],
@@ -248,6 +252,18 @@ class TestApiScopes(unittest.TestCase):
                 "report_executions_download_get",
             ],
             "serverless": ["GetCombinedVulnerabilitiesSARIF"],
+            "cases": [
+                "queries_cases_get_v1",
+                "entities_cases_post_v2",
+                "entities_cases_put_v2",
+                "entities_cases_patch_v2",
+                "entities_alert_evidence_post_v1",
+                "entities_event_evidence_post_v1",
+                "entities_case_tags_post_v1",
+                "entities_case_tags_delete_v1",
+                "queries_templates_get_v1",
+                "entities_templates_get_v1",
+            ],
             "workflow": [
                 "WorkflowActivitiesCombined",
                 "WorkflowActivitiesContentCombined",
@@ -276,11 +292,11 @@ class TestApiScopes(unittest.TestCase):
             f"Expected operations missing from scope mappings: {sorted(missing_operations)}",
         )
 
-        # Should have reasonable coverage (at least 11 different modules)
+        # Should have reasonable coverage (at least 12 different modules)
         self.assertGreaterEqual(
             len(module_patterns),
-            11,
-            "Should have scope mappings for at least 11 different functional modules",
+            12,
+            "Should have scope mappings for at least 12 different functional modules",
         )
 
 

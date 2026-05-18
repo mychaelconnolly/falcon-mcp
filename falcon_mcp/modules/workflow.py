@@ -74,13 +74,13 @@ class WorkflowModule(BaseModule):
     def register_resources(self, server: FastMCP) -> None:
         """Register Workflow design resources with the MCP server."""
         builder_resource = TextResource(
-            uri=AnyUrl("falcon://workflow/builder-guide"),
+            uri=AnyUrl("falcon://workflow/builder/design-guide"),
             name="falcon_workflow_builder_guide",
             description="Advisory guide for designing Fusion SOAR workflows from live catalog data.",
             text=WORKFLOW_BUILDER_GUIDE,
         )
         fql_resource = TextResource(
-            uri=AnyUrl("falcon://workflow/fql-guide"),
+            uri=AnyUrl("falcon://workflow/catalog/fql-guide"),
             name="falcon_workflow_fql_guide",
             description="FQL guide for Falcon Workflow search tools.",
             text=WORKFLOW_FQL_DOCUMENTATION,
@@ -173,7 +173,7 @@ class WorkflowModule(BaseModule):
         self,
         filter: str | None = Field(
             default=None,
-            description="FQL filter for workflow activities. Use `falcon://workflow/fql-guide` for examples.",
+            description="FQL filter for workflow activities. Use `falcon://workflow/catalog/fql-guide` for examples.",
         ),
         limit: int = Field(
             default=50,
@@ -211,7 +211,7 @@ class WorkflowModule(BaseModule):
         self,
         filter: str | None = Field(
             default=None,
-            description="FQL filter for workflow activity content. Use `falcon://workflow/fql-guide` for examples.",
+            description="FQL filter for workflow activity content. Use `falcon://workflow/catalog/fql-guide` for examples.",
         ),
         limit: int = Field(
             default=50,

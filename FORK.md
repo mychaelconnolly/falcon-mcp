@@ -78,7 +78,7 @@ falcon-mcp --modules workflow
 For mixed use, include it in the normal module list:
 
 ```bash
-falcon-mcp --modules workflow,detections,incidents,intel
+falcon-mcp --modules workflow,detections,hosts,intel
 ```
 
 ## Publication Status

@@ -1,6 +1,8 @@
 ![CrowdStrike Logo (Light)](https://raw.githubusercontent.com/CrowdStrike/.github/main/assets/cs-logo-light-mode.png#gh-light-mode-only)
 ![CrowdStrike Logo (Dark)](https://raw.githubusercontent.com/CrowdStrike/.github/main/assets/cs-logo-dark-mode.png#gh-dark-mode-only)
 
+<!-- mcp-name: io.github.CrowdStrike/falcon-mcp -->
+
 # falcon-mcp
 
 [![PyPI version](https://badge.fury.io/py/falcon-mcp.svg)](https://badge.fury.io/py/falcon-mcp)
@@ -8,7 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://mychaelconnolly.github.io/falcon-mcp/)
 
-**falcon-mcp** is a Model Context Protocol (MCP) server that connects AI agents with the CrowdStrike Falcon platform, powering intelligent security analysis in your agentic workflows. It delivers programmatic access to essential security capabilities—including detections, incidents, and behaviors—establishing the foundation for advanced security operations and automation.
+**falcon-mcp** is a Model Context Protocol (MCP) server that connects AI agents with the CrowdStrike Falcon platform, powering intelligent security analysis in your agentic workflows. It delivers programmatic access to essential security capabilities—including detections, threat intelligence, and host management—establishing the foundation for advanced security operations and automation.
 
 > [!NOTE]
 > This is a fork of [`CrowdStrike/falcon-mcp`](https://github.com/CrowdStrike/falcon-mcp). It keeps the same `falcon-mcp` package, CLI, transports, configuration, and existing module behavior as upstream, with one addition: a read-only Workflow module for advisory Fusion SOAR workflow design. The Workflow module helps recommend triggers, actions, conditions, fields, and values from live Falcon Workflow catalog data. It does not create, import, update, execute, enable, disable, cancel, or delete workflows.
@@ -29,14 +31,14 @@ See [FORK.md](FORK.md) for the fork purpose, upstream compatibility statement, a
 | Module | Description |
 |--------|-------------|
 | Core | Basic connectivity and system information |
-| [Cloud Security](https://mychaelconnolly.github.io/falcon-mcp/modules/cloud/) | Kubernetes containers, image vulnerabilities, and CSPM asset inventory |
+| [Case Management](https://mychaelconnolly.github.io/falcon-mcp/modules/cases/) | Case lifecycle management, evidence attachment, tagging, and templates |
+| [Cloud Security](https://mychaelconnolly.github.io/falcon-mcp/modules/cloud/) | Kubernetes containers, image vulnerabilities, CSPM asset inventory, IOM findings, and suppression rules |
 | [Custom IOA](https://mychaelconnolly.github.io/falcon-mcp/modules/custom-ioa/) | Create and manage Custom IOA behavioral detection rules and rule groups |
 | [Detections](https://mychaelconnolly.github.io/falcon-mcp/modules/detections/) | Find and analyze detections to understand malicious activity |
 | [Discover](https://mychaelconnolly.github.io/falcon-mcp/modules/discover/) | Search application inventory and discover unmanaged assets |
 | [Firewall Management](https://mychaelconnolly.github.io/falcon-mcp/modules/firewall/) | Search and manage firewall rules and rule groups |
 | [Hosts](https://mychaelconnolly.github.io/falcon-mcp/modules/hosts/) | Manage and query host/device information |
 | [Identity Protection](https://mychaelconnolly.github.io/falcon-mcp/modules/idp/) | Entity investigation and identity protection analysis |
-| [Incidents](https://mychaelconnolly.github.io/falcon-mcp/modules/incidents/) | Analyze security incidents and coordinated activities |
 | [Intel](https://mychaelconnolly.github.io/falcon-mcp/modules/intel/) | Research threat actors, IOCs, and intelligence reports |
 | [IOC](https://mychaelconnolly.github.io/falcon-mcp/modules/ioc/) | Search, create, and remove custom indicators of compromise |
 | [NGSIEM](https://mychaelconnolly.github.io/falcon-mcp/modules/ngsiem/) | Execute CQL queries against Next-Gen SIEM |
@@ -122,7 +124,7 @@ See the [Getting Started guide](https://mychaelconnolly.github.io/falcon-mcp/get
         "git+https://github.com/mychaelconnolly/falcon-mcp.git",
         "falcon-mcp",
         "--modules",
-        "workflow,detections,incidents,intel"
+        "workflow,detections,hosts,intel"
       ]
     }
   }

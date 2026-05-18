@@ -90,8 +90,9 @@ class FalconMCPServer:
 
         # Authenticate with the Falcon API
         if not self.falcon_client.authenticate():
-            logger.error("Failed to authenticate with the Falcon API")
-            raise RuntimeError("Failed to authenticate with the Falcon API")
+            msg = self.falcon_client.auth_failure_message()
+            logger.error(msg)
+            raise RuntimeError(msg)
 
         # Initialize the MCP server
         self.server = FastMCP(
@@ -149,18 +150,21 @@ class FalconMCPServer:
             self.falcon_check_connectivity,
             name="falcon_check_connectivity",
             annotations=READ_ONLY_ANNOTATIONS,
+            structured_output=False,
         )
 
         self.server.add_tool(
             self.list_enabled_modules,
             name="falcon_list_enabled_modules",
             annotations=READ_ONLY_ANNOTATIONS,
+            structured_output=False,
         )
 
         self.server.add_tool(
             self.list_modules,
             name="falcon_list_modules",
             annotations=READ_ONLY_ANNOTATIONS,
+            structured_output=False,
         )
 
         tool_count = 3  # the tools added above
@@ -189,7 +193,12 @@ class FalconMCPServer:
 
     def falcon_check_connectivity(self) -> dict[str, bool]:
         """Check connectivity to the Falcon API."""
-        return {"connected": self.falcon_client.is_authenticated()}
+        try:
+            result = self.falcon_client.client._login_handler(stateful=False)
+            return {"connected": result.get("status_code") == 201}
+        except Exception:
+            logger.warning("Connectivity probe failed", exc_info=True)
+            return {"connected": False}
 
     def list_enabled_modules(self) -> dict[str, list[str]]:
         """Lists enabled modules in the falcon-mcp server.

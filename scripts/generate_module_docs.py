@@ -29,6 +29,10 @@ OUTPUT_DIR = PROJECT_ROOT / "docs-site" / "src" / "content" / "docs" / "modules"
 # Titles and descriptions are auto-derived from module docstrings.
 # Add entries here when you need a custom title, slug, or description.
 MODULE_METADATA: dict[str, dict[str, Any]] = {
+    "cases": {
+        "title": "Case Management",
+        "slug": "cases",
+    },
     "cloud": {
         "title": "Cloud Security",
     },
@@ -58,6 +62,35 @@ MODULE_METADATA: dict[str, dict[str, Any]] = {
 
 # Natural language prompt examples for each tool, shown in generated docs
 TOOL_EXAMPLES: dict[str, list[str]] = {
+    # Cases
+    "falcon_search_cases": [
+        "Show me any open cases with high severity or above",
+        "What cases have been created in the last 24 hours?",
+    ],
+    "falcon_get_cases": [
+        "Pull up the full details on that case",
+    ],
+    "falcon_create_case": [
+        "Create a critical case called 'Suspicious lateral movement from WORKSTATION-42'",
+        "Open a high-severity case for the credential theft alerts and attach them as evidence",
+    ],
+    "falcon_update_case": [
+        "Set that case to in_progress and assign it to the analyst",
+        "Close the case — investigation is complete",
+    ],
+    "falcon_add_case_alert_evidence": [
+        "Attach these detection alerts to the case",
+    ],
+    "falcon_add_case_event_evidence": [
+        "Add these NGSIEM event IDs to the case as evidence",
+    ],
+    "falcon_manage_case_tags": [
+        "Tag that case with 'ransomware' and 'escalated'",
+        "Remove the 'escalated' tag from that case",
+    ],
+    "falcon_list_case_templates": [
+        "What case templates are available?",
+    ],
     # Cloud
     "falcon_search_kubernetes_containers": [
         "Find all containers running in AWS clusters",
@@ -71,6 +104,23 @@ TOOL_EXAMPLES: dict[str, list[str]] = {
     ],
     "falcon_search_cspm_assets": [
         "Find all AWS EC2 instances in my cloud inventory",
+    ],
+    "falcon_search_iom_findings": [
+        "Show me critical open CSPM misconfiguration findings in AWS",
+        "Find IOM findings for S3 buckets with public access",
+        "What CSPM IOM findings are suppressed as accepted risk?",
+    ],
+    "falcon_search_cspm_suppression_rules": [
+        "List all CSPM IOM suppression rules and their reasons",
+        "Show me which CSPM findings are being suppressed and why",
+    ],
+    "falcon_create_cspm_suppression_rule": [
+        "Create a CSPM suppression rule for the S3 encryption finding in the dev account as accepted risk",
+        "Suppress the IAM password policy IOM finding as a false positive, expiring in 30 days",
+    ],
+    "falcon_delete_cspm_suppression_rules": [
+        "Delete CSPM suppression rule abc-123",
+        "Remove the CSPM IOM suppression rule for the S3 public access finding",
     ],
     # Custom IOA
     "falcon_search_ioa_rule_groups": [
@@ -144,23 +194,6 @@ TOOL_EXAMPLES: dict[str, list[str]] = {
     "falcon_idp_investigate_entity": [
         "Investigate user john.doe@company.com and show their risk assessment",
         "Look up entity Administrator in domain CORP.LOCAL",
-    ],
-    # Incidents
-    "falcon_search_incidents": [
-        "Find all open high-severity incidents",
-        "Show me incidents from the past week",
-    ],
-    "falcon_get_incident_details": [
-        "Get details for incident inc:abc123",
-    ],
-    "falcon_show_crowd_score": [
-        "Show me the current CrowdScore for my environment",
-    ],
-    "falcon_search_behaviors": [
-        "Find behaviors associated with lateral movement",
-    ],
-    "falcon_get_behavior_details": [
-        "Get details for behavior behav:abc123",
     ],
     # Intel
     "falcon_search_actors": [

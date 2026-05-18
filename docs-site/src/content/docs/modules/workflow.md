@@ -128,5 +128,5 @@ mappings that fit the user's SOAR goal.
 
 ## Resources
 
-- **`falcon://workflow/builder-guide`**: Advisory guide for designing Fusion SOAR workflows from live catalog data.
-- **`falcon://workflow/fql-guide`**: FQL guide for Falcon Workflow search tools.
+- **`falcon://workflow/builder/design-guide`**: Advisory guide for designing Fusion SOAR workflows from live catalog data.
+- **`falcon://workflow/catalog/fql-guide`**: FQL guide for Falcon Workflow search tools.
