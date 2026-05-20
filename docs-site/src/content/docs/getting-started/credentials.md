@@ -26,6 +26,9 @@ Each module requires specific CrowdStrike API scopes. See the [Module Overview](
 For this fork's Workflow module, grant `workflow:read`. The module is read-only
 and advisory; it does not require `workflow:write`.
 
+For this fork's Dashboards module, grant `ngsiem-dashboards:read` to list and
+export dashboards, and `ngsiem-dashboards:write` to create dashboards from YAML.
+
 ## API Region URLs
 
 Select the correct base URL for your CrowdStrike region:

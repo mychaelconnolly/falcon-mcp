@@ -227,6 +227,17 @@ TOOL_EXAMPLES: dict[str, list[str]] = {
         "Run this CQL query for the last 24 hours: #event_simpleName=ProcessRollup2",
         "Search NGSIEM for DNS events from January 2025",
     ],
+    # Dashboards
+    "falcon_list_dashboards": [
+        "List NGSIEM dashboards matching Windows",
+        "Show me dashboards in the Falcon search domain",
+    ],
+    "falcon_get_dashboard_template": [
+        "Export dashboard abc123 as a LogScale YAML template",
+    ],
+    "falcon_create_dashboard_from_template": [
+        "Create an NGSIEM dashboard named Endpoint Overview from this YAML template",
+    ],
     # Scheduled Reports
     "falcon_search_scheduled_reports": [
         "Show me all active scheduled reports",

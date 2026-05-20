@@ -42,7 +42,7 @@ Edit `claude_desktop_config.json`:
         "git+https://github.com/mychaelconnolly/falcon-mcp.git",
         "falcon-mcp",
         "--modules",
-        "workflow,detections,hosts,intel"
+        "workflow,dashboards,detections,hosts,intel"
       ]
     }
   }
@@ -84,7 +84,7 @@ Edit `claude_desktop_config.json`:
         "--rm",
         "--env-file",
         "/full/path/to/.env",
-        "falcon-mcp-workflow"
+        "falcon-mcp-fork"
       ]
     }
   }
@@ -93,9 +93,9 @@ Edit `claude_desktop_config.json`:
 
 :::note
 The `-i` flag is required when using the default stdio transport with Docker.
-Build `falcon-mcp-workflow` locally from this fork before using the Docker
+Build `falcon-mcp-fork` locally from this fork before using the Docker
 configuration. The upstream `quay.io/crowdstrike/falcon-mcp` image does not
-include fork-only Workflow tools.
+include fork-only modules.
 :::
 
 ## Cline (VS Code)

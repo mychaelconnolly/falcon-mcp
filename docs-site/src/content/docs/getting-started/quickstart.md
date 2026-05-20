@@ -14,6 +14,7 @@ This guide gets you from zero to a working Falcon MCP Server connection in 5 min
    - Enable scopes for the modules you plan to use
    - For basic detections/hosts usage, enable at minimum `Hosts:read` and `Alerts:read`
    - For the fork-only Workflow module, enable `workflow:read`
+   - For the fork-only Dashboards module, enable `ngsiem-dashboards:read` and `ngsiem-dashboards:write`
 4. Save your **Client ID**, **Client Secret**, and **Base URL**
 
 ## Step 2: Install
@@ -69,7 +70,7 @@ The server will call `falcon_check_connectivity` and confirm the connection.
 
 > "List all enabled modules"
 
-You should see the enabled modules listed, including `workflow` when it is enabled.
+You should see the enabled modules listed, including `workflow` and `dashboards` when enabled.
 
 ## Next Steps
 

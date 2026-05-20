@@ -89,6 +89,10 @@ API_SCOPE_REQUIREMENTS = {
     "StartSearchV1": ["NGSIEM:write"],
     "GetSearchStatusV1": ["NGSIEM:read"],
     "StopSearchV1": ["NGSIEM:write"],
+    # NGSIEM dashboard operations
+    "ListDashboards": ["ngsiem-dashboards:read"],
+    "GetDashboardTemplate": ["ngsiem-dashboards:read"],
+    "CreateDashboardFromTemplate": ["ngsiem-dashboards:write"],
     # Real Time Response operations
     "RTR_ListAllSessions": ["Real time response:read"],
     "RTR_ListSessions": ["Real time response:read"],

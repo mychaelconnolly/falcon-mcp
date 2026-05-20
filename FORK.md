@@ -1,15 +1,20 @@
-# Falcon MCP Workflow Fork
+# Falcon MCP Workflow and Dashboards Fork
 
 This repository is a fork of CrowdStrike's `falcon-mcp` project prepared for
 publication at `https://github.com/mychaelconnolly/falcon-mcp`.
 
 ## Purpose
 
-The fork adds one capability: a read-only Workflow module for Fusion SOAR
-workflow design assistance. The module lets an AI assistant query live Falcon
-Workflow catalog data, existing workflow definitions, executions, execution
-results, and human input records so it can recommend triggers, actions,
-conditions, fields, and values for a stated SOAR automation goal.
+The fork adds two capabilities:
+
+- a read-only Workflow module for Fusion SOAR workflow design assistance
+- an NGSIEM Dashboards module for reading dashboards and creating dashboards
+  from reviewed LogScale YAML templates
+
+The Workflow module lets an AI assistant query live Falcon Workflow catalog
+data, existing workflow definitions, executions, execution results, and human
+input records so it can recommend triggers, actions, conditions, fields, and
+values for a stated SOAR automation goal.
 
 The Workflow module is advisory only. It does not create, import, update,
 execute, enable, disable, cancel, delete, or otherwise mutate workflows.
@@ -33,7 +38,7 @@ published PyPI / container artifacts:
 https://github.com/CrowdStrike/falcon-mcp
 
 Use this fork when you need the additional read-only Fusion SOAR Workflow design
-module.
+module or NGSIEM dashboard read/create tooling.
 
 Unlike broader Workflow lifecycle forks that expose write and execution
 operations, this fork is intentionally scoped to read-only Workflow design
@@ -81,6 +86,22 @@ For mixed use, include it in the normal module list:
 falcon-mcp --modules workflow,detections,hosts,intel
 ```
 
+## Dashboards Scope
+
+To use the fork's Dashboards module, grant the API client these CrowdStrike
+Falcon scopes:
+
+```text
+ngsiem-dashboards:read
+ngsiem-dashboards:write
+```
+
+For focused use, load only the Dashboards module:
+
+```bash
+falcon-mcp --modules dashboards
+```
+
 ## Publication Status
 
 This fork is published at:
@@ -88,7 +109,7 @@ This fork is published at:
 https://github.com/mychaelconnolly/falcon-mcp
 
 The `main` branch is synced with upstream `v0.10.0` while preserving the
-read-only Workflow module.
+read-only Workflow module and adding NGSIEM dashboard read/create support.
 
 The GitHub Pages documentation site is enabled at:
 

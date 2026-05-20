@@ -32,7 +32,7 @@ If `falcon-mcp` isn't found after installation, update your shell `PATH`.
 :::note
 `uv tool install falcon-mcp`, `pip install falcon-mcp`, and the public
 `quay.io/crowdstrike/falcon-mcp` container install upstream artifacts. Use the
-GitHub install commands on this page for the fork-only Workflow module until
+GitHub install commands on this page for the fork-only modules until
 fork-specific package or container artifacts exist.
 :::
 

@@ -275,6 +275,11 @@ class TestApiScopes(unittest.TestCase):
                 "WorkflowGetHumanInputV1",
                 "v1_child_executions_query",
             ],
+            "dashboards": [
+                "ListDashboards",
+                "GetDashboardTemplate",
+                "CreateDashboardFromTemplate",
+            ],
         }
 
         # Verify that all expected operations are mapped

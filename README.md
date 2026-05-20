@@ -13,9 +13,9 @@
 **falcon-mcp** is a Model Context Protocol (MCP) server that connects AI agents with the CrowdStrike Falcon platform, powering intelligent security analysis in your agentic workflows. It delivers programmatic access to essential security capabilities—including detections, threat intelligence, and host management—establishing the foundation for advanced security operations and automation.
 
 > [!NOTE]
-> This is a fork of [`CrowdStrike/falcon-mcp`](https://github.com/CrowdStrike/falcon-mcp). It keeps the same `falcon-mcp` package, CLI, transports, configuration, and existing module behavior as upstream, with one addition: a read-only Workflow module for advisory Fusion SOAR workflow design. The Workflow module helps recommend triggers, actions, conditions, fields, and values from live Falcon Workflow catalog data. It does not create, import, update, execute, enable, disable, cancel, or delete workflows.
+> This is a fork of [`CrowdStrike/falcon-mcp`](https://github.com/CrowdStrike/falcon-mcp). It keeps the same `falcon-mcp` package, CLI, transports, configuration, and existing module behavior as upstream, with fork additions for read-only Workflow design assistance and NGSIEM dashboard read/create support. The Workflow module helps recommend triggers, actions, conditions, fields, and values from live Falcon Workflow catalog data. It does not create, import, update, execute, enable, disable, cancel, or delete workflows.
 >
-> This fork is designed for teams that want AI-assisted Fusion SOAR workflow planning without giving the MCP server authority to mutate workflows. Unlike broader Workflow lifecycle forks that expose write and execution operations, this fork is intentionally scoped to least-privilege, read-only design support.
+> This fork is designed for teams that want AI-assisted Fusion SOAR workflow planning without giving the MCP server authority to mutate workflows, and teams that need AI-assisted NGSIEM dashboard discovery and creation from reviewed LogScale YAML templates. Unlike broader Workflow lifecycle forks that expose write and execution operations, the Workflow addition is intentionally scoped to least-privilege, read-only design support.
 
 > [!IMPORTANT]
 > **🚧 Public Preview**: This project is currently in public preview and under active development. Features and functionality may change before the stable 1.0 release. While we encourage exploration and testing, please avoid production deployments. We welcome your feedback through [GitHub Issues](https://github.com/mychaelconnolly/falcon-mcp/issues) to help shape the final release.
@@ -36,6 +36,7 @@ See [FORK.md](FORK.md) for the fork purpose, upstream compatibility statement, a
 | [Custom IOA](https://mychaelconnolly.github.io/falcon-mcp/modules/custom-ioa/) | Create and manage Custom IOA behavioral detection rules and rule groups |
 | [Detections](https://mychaelconnolly.github.io/falcon-mcp/modules/detections/) | Find and analyze detections to understand malicious activity |
 | [Discover](https://mychaelconnolly.github.io/falcon-mcp/modules/discover/) | Search application inventory and discover unmanaged assets |
+| [Dashboards](https://mychaelconnolly.github.io/falcon-mcp/modules/dashboards/) | Read NGSIEM dashboards and create dashboards from LogScale YAML templates |
 | [Firewall Management](https://mychaelconnolly.github.io/falcon-mcp/modules/firewall/) | Search and manage firewall rules and rule groups |
 | [Hosts](https://mychaelconnolly.github.io/falcon-mcp/modules/hosts/) | Manage and query host/device information |
 | [Identity Protection](https://mychaelconnolly.github.io/falcon-mcp/modules/idp/) | Entity investigation and identity protection analysis |
@@ -124,7 +125,7 @@ See the [Getting Started guide](https://mychaelconnolly.github.io/falcon-mcp/get
         "git+https://github.com/mychaelconnolly/falcon-mcp.git",
         "falcon-mcp",
         "--modules",
-        "workflow,detections,hosts,intel"
+        "workflow,dashboards,detections,hosts,intel"
       ]
     }
   }
@@ -144,31 +145,31 @@ See the [Getting Started guide](https://mychaelconnolly.github.io/falcon-mcp/get
         "--rm",
         "--env-file",
         "/full/path/to/.env",
-        "falcon-mcp-workflow"
+        "falcon-mcp-fork"
       ]
     }
   }
 }
 ```
 
-Build `falcon-mcp-workflow` locally from this fork before using the Docker configuration. The upstream `quay.io/crowdstrike/falcon-mcp` image does not include fork-only Workflow tools.
+Build `falcon-mcp-fork` locally from this fork before using the Docker configuration. The upstream `quay.io/crowdstrike/falcon-mcp` image does not include fork-only modules.
 
 See the [Usage guide](https://mychaelconnolly.github.io/falcon-mcp/usage/cli/) for all command line options, module configuration, and library usage.
 
 ## Container Usage
 
-No fork-specific container image is published yet. Build locally to include the Workflow module:
+No fork-specific container image is published yet. Build locally to include the fork-only modules:
 
 ```bash
 # Build this fork locally
-docker build -t falcon-mcp-workflow .
+docker build -t falcon-mcp-fork .
 
 # Run with .env file (stdio transport)
-docker run -i --rm --env-file /path/to/.env falcon-mcp-workflow
+docker run -i --rm --env-file /path/to/.env falcon-mcp-fork
 
 # Run with streamable-http transport
 docker run --rm -p 8000:8000 --env-file /path/to/.env \
-  falcon-mcp-workflow --transport streamable-http --host 0.0.0.0
+  falcon-mcp-fork --transport streamable-http --host 0.0.0.0
 ```
 
 See the [Docker Deployment guide](https://mychaelconnolly.github.io/falcon-mcp/deployment/docker/) for building locally, custom ports, and advanced configurations.

@@ -12,10 +12,12 @@ project.
 ## Purpose
 
 This fork keeps the same `falcon-mcp` package, CLI, transports, configuration,
-and existing module behavior as upstream. It adds one module:
+and existing module behavior as upstream. It adds two modules:
 
 - `workflow`: read-only Fusion SOAR Workflow design assistance using live Falcon
   Workflow catalog data.
+- `dashboards`: NGSIEM dashboard read/create support using LogScale dashboard
+  YAML templates.
 
 The Workflow module helps AI assistants recommend triggers, actions, conditions,
 fields, and values for a stated SOAR automation goal. It is advisory only. It
@@ -23,10 +25,11 @@ does not create, import, update, execute, enable, disable, cancel, or delete
 workflows.
 
 This fork is designed for teams that want AI-assisted Fusion SOAR workflow
-planning without giving the MCP server authority to mutate workflows. Its
-defining characteristic is least-privilege design assistance: it helps users
-produce better workflow plans, but leaves workflow creation and change control to
-humans and existing Falcon processes.
+planning without giving the MCP server authority to mutate workflows, plus
+AI-assisted NGSIEM dashboard discovery and creation from reviewed LogScale YAML
+templates. Its Workflow support helps users produce better workflow plans, but
+leaves workflow creation and change control to humans and existing Falcon
+processes.
 
 ## Compatibility
 
@@ -43,7 +46,7 @@ The fork does not rename:
 
 Use upstream `falcon-mcp` for official CrowdStrike releases and published PyPI
 or container artifacts. Use this fork when you need the added read-only Workflow
-advisory module.
+advisory module or NGSIEM dashboard read/create tooling.
 
 Unlike broader Workflow lifecycle forks that expose write and execution
 operations, this fork is intentionally scoped to read-only Workflow design
@@ -88,4 +91,19 @@ To combine it with other modules:
 
 ```bash
 falcon-mcp --modules workflow,detections,hosts,intel
+```
+
+## Dashboards API Scope
+
+The Dashboards module requires:
+
+```text
+ngsiem-dashboards:read
+ngsiem-dashboards:write
+```
+
+To load only the Dashboards module:
+
+```bash
+falcon-mcp --modules dashboards
 ```

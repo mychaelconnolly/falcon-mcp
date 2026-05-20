@@ -60,6 +60,8 @@ MUTATING_TOOL_ALLOWLIST: set[str] = {
     "falcon_add_case_alert_evidence",
     "falcon_add_case_event_evidence",
     "falcon_manage_case_tags",
+    # dashboards module
+    "falcon_create_dashboard_from_template",
 }
 
 RESOURCE_URI_PATTERN = re.compile(r"^falcon://[a-z0-9-]+(/[a-z0-9-]+)+/[a-z]+-guide$")

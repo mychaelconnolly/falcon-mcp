@@ -45,77 +45,70 @@ class IdpModule(BaseModule):
         # Entity Identification (Required - at least one)
         entity_ids: list[str] | None = Field(
             default=None,
-            description="List of specific entity IDs to investigate (e.g., ['entity-001'])",
+            description="Entity IDs to investigate.",
         ),
         entity_names: list[str] | None = Field(
             default=None,
-            description="List of entity names to search for (e.g., ['Administrator', 'John Doe']). When combined with other parameters, uses AND logic.",
+            description="Entity names to search.",
         ),
         email_addresses: list[str] | None = Field(
             default=None,
-            description="List of email addresses to investigate (e.g., ['user@example.com']). When combined with other parameters, uses AND logic.",
+            description="Email addresses to investigate.",
         ),
         ip_addresses: list[str] | None = Field(
             default=None,
-            description="List of IP addresses/endpoints to investigate (e.g., ['1.1.1.1']). When combined with other parameters, uses AND logic.",
+            description="IP addresses or endpoint names to investigate.",
         ),
         domain_names: list[str] | None = Field(
             default=None,
-            description="List of domain names to search for (e.g., ['XDRHOLDINGS.COM', 'CORP.LOCAL']). When combined with other parameters, uses AND logic. Example: entity_names=['Administrator'] + domain_names=['DOMAIN.COM'] finds Administrator user in that specific domain.",
+            description="Domain names to constrain entity-name searches.",
         ),
         # Investigation Scope Control
         investigation_types: list[str] = Field(
             default=["entity_details"],
-            description="Types of investigation to perform: 'entity_details', 'timeline_analysis', 'relationship_analysis', 'risk_assessment'. Use multiple for comprehensive analysis.",
+            description="Investigation types: entity_details, timeline_analysis, relationship_analysis, risk_assessment.",
         ),
         # Timeline Parameters (when timeline_analysis is included)
         timeline_start_time: str | None = Field(
             default=None,
-            description="Start time for timeline analysis in ISO format (e.g., '2024-01-01T00:00:00Z')",
+            description="Timeline start time in ISO format.",
         ),
         timeline_end_time: str | None = Field(
             default=None,
-            description="End time for timeline analysis in ISO format",
+            description="Timeline end time in ISO format.",
         ),
         timeline_event_types: list[str] | None = Field(
             default=None,
-            description="Filter timeline by event types: 'ACTIVITY', 'NOTIFICATION', 'THREAT', 'ENTITY', 'AUDIT', 'POLICY', 'SYSTEM'",
+            description="Timeline event type filter.",
         ),
         # Relationship Parameters (when relationship_analysis is included)
         relationship_depth: int = Field(
             default=2,
             ge=1,
             le=3,
-            description="Depth of relationship analysis (1-3 levels)",
+            description="Relationship depth, 1-3.",
         ),
         # General Parameters
         limit: int = Field(
             default=10,
             ge=1,
             le=200,
-            description="Maximum number of results to return",
+            description="Maximum results.",
         ),
         include_associations: bool = Field(
             default=True,
-            description="Include entity associations and relationships in results",
+            description="Include associations.",
         ),
         include_accounts: bool = Field(
             default=True,
-            description="Include account information in results",
+            description="Include accounts.",
         ),
         include_incidents: bool = Field(
             default=True,
-            description="Include open security incidents in results",
+            description="Include open incidents.",
         ),
     ) -> dict[str, Any]:
-        """Investigate one or more Identity Protection entities by ID, name, email, IP, or domain.
-
-        Use this to look up entity details, activity timelines, relationship graphs, and risk
-        assessments; at least one identifier must be supplied, and multiple identifiers are
-        combined with AND logic (email and IP cannot be combined — email takes precedence).
-        Returns a structured response with an investigation_summary, resolved entity IDs,
-        and results keyed by each requested investigation type.
-        """
+        """Investigate Identity Protection entities by ID, name, email, IP, or domain."""
         logger.debug("Starting comprehensive entity investigation")
 
         # Step 1: Validate inputs
