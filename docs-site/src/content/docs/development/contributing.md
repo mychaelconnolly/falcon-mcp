@@ -3,9 +3,9 @@ title: Contributing
 description: How to contribute to the Falcon MCP Server project.
 ---
 
-Thank you for your interest in contributing to this Falcon MCP workflow fork. This guide covers the contribution workflow, commit standards, and how to get help.
+Thank you for your interest in contributing to this Falcon MCP Workflow and Dashboards fork. This guide covers the contribution workflow, commit standards, and how to get help.
 
-This fork tracks CrowdStrike's upstream Falcon MCP project and adds the read-only Workflow module. Contributions that apply to all Falcon MCP users may also be good candidates for upstream contribution.
+This fork tracks CrowdStrike's upstream Falcon MCP project and adds the read-only Workflow module plus NGSIEM dashboard read/create tooling. Contributions that apply to all Falcon MCP users may also be good candidates for upstream contribution.
 
 ## How to Contribute
 

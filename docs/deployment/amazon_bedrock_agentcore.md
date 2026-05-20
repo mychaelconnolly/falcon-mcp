@@ -104,4 +104,4 @@ After deployment, verify connectivity by invoking the `falcon_check_connectivity
 
 ### Additional Resources
 
-For full details, visit the [Falcon MCP workflow fork repository](https://github.com/mychaelconnolly/falcon-mcp).
+For full details, visit the [Falcon MCP Workflow and Dashboards fork repository](https://github.com/mychaelconnolly/falcon-mcp).
